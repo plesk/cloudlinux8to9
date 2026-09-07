@@ -202,6 +202,7 @@ class CloudLinux8to9Upgrader(DistUpgrader):
                 custom_actions.UseSystemResolveForLeappContainer(),
             ],
             "Handle plesk related services": [
+                custom_actions.PostStartProftpd(),
                 common_actions.DisablePleskRelatedServicesDuringUpgrade(),
                 common_actions.DisableServiceDuringUpgrade("mailman.service"),
                 common_actions.HandlePleskFirewallService(),

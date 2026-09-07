@@ -11,4 +11,5 @@ from .perl import *
 from .php import *
 from .plesk import *
 from .postgres import *
+from .services import *
 from .stattools import *
