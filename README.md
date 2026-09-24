@@ -41,8 +41,8 @@ To retrieve the latest available version of the tool, please navigate to the "Re
 
 To prepare the latest version of the tool for use from a command line, please run the following commands:
 ```shell
-> wget https://github.com/plesk/cloudlinux8to9/releases/download/v1.0.0/cloudlinux8to9-1.0.0.zip
-> unzip cloudlinux8to9-1.0.0.zip
+> wget https://github.com/plesk/cloudlinux8to9/releases/download/v1.0.1/cloudlinux8to9-1.0.1.zip
+> unzip cloudlinux8to9-1.0.1.zip
 > chmod 755 cloudlinux8to9
 ```
 
