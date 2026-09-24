@@ -222,8 +222,23 @@ class TestLeappPins(unittest.TestCase):
 
     def _pins(self):
         upgrader = cloudlinux8to9.upgrader.CloudLinux8to9Upgrader()
-        actions = upgrader.construct_actions(
-            "/root/cloudlinux8to9", mock.MagicMock(), mock.MagicMock())
+
+        # MagicMock has no __fspath__ on python 3.6, so we have to construct it
+        # with real strings, to make sure all actions could be created.
+        options = mock.MagicMock(
+            state_dir="/usr/local/psa/var/cloudlinux8to9",
+            completion_flag_path="/tmp/cloudlinux8to9-completed",
+            status_flag_path="/tmp/cloudlinux8to9-status")
+
+        # We check exactly which leapp packages versions are pinned,
+        # and the test environment may not be ready for our other calls.
+        # So we mock almost everything here.
+        not_found = subprocess.CompletedProcess([], returncode=1, stdout="", stderr="")
+        with mock.patch("os.makedirs"), \
+                mock.patch("subprocess.run", return_value=not_found), \
+                mock.patch("pleskdistup.common.src.packages.is_package_installed", return_value=False):
+            actions = upgrader.construct_actions(
+                "/root/cloudlinux8to9", options, mock.MagicMock())
         for group in actions.values():
             for act in group:
                 pkgs = getattr(act, "pkgs_to_install", None)
